@@ -50,8 +50,9 @@ def instructions():
     print('''
 This program will convert any from of distance, time and weight to a 
 different unit (meter to centimeter, second to hour, kilogram to gram etc)
-first enter the type of thing you want, then the unit you are translating from, 
-then the number. 
+first enter which of distance weight and time you want, then the unit you are 
+translating from, then the number, and finally the unit to translate to. When entering 
+units, do not use plural as the code will not work.
 Complete as many calculations as necessary, pressing <enter>
 at the end of each calculation or any key to quit. 
     ''')
@@ -90,13 +91,67 @@ def distance_conversion():
     given_unit = input("Please enter what unit you are converting from.")
 
     # limit of 1000 to keep things simple
-    number = num_check("Please enter the number you are converting.", 0, 1000)
+    number = num_check("Please enter the number you are converting.", 0, 1000000)
 
     # Ask user what they want to convert to
     produced_unit = input("Please enter what unit you wish to convert to.")
 
     # check that given and produced unit are in the same domain (ie: distance, weight or time)
     if produced_unit in distance_list and given_unit in distance_list:
+        # times to get to mm
+        # check if it's a key
+        if given_unit in my_dict:
+            # converts to meters
+            multiplied_by = my_dict[given_unit]
+            answer = number * multiplied_by
+
+            # convert to required unit
+            divided_by = my_dict[produced_unit]
+            final_answer = answer / divided_by
+
+            print(final_answer)
+    else:
+        print(f"Oops - you can't convert between {produced_unit} and {given_unit}. Please try again")
+
+
+def weight_conversion():
+    given_unit = input("Please enter what unit you are converting from.")
+
+    # limit of 1000 to keep things simple
+    number = num_check("Please enter the number you are converting.", 0, 1000000)
+
+    # Ask user what they want to convert to
+    produced_unit = input("Please enter what unit you wish to convert to.")
+
+    # check that given and produced unit are in the same domain (ie: distance, weight or time)
+    if produced_unit in weight_list and given_unit in weight_list:
+        # times to get to mm
+        # check if it's a key
+        if given_unit in my_dict:
+            # converts to meters
+            multiplied_by = my_dict[given_unit]
+            answer = number * multiplied_by
+
+            # convert to required unit
+            divided_by = my_dict[produced_unit]
+            final_answer = answer / divided_by
+
+            print(final_answer)
+    else:
+        print(f"Oops - you can't convert between {produced_unit} and {given_unit}. Please try again")
+
+
+def time_conversion():
+    given_unit = input("Please enter what unit you are converting from.")
+
+    # limit of 1000 to keep things simple
+    number = num_check("Please enter the number you are converting.", 0, 1000000)
+
+    # Ask user what they want to convert to
+    produced_unit = input("Please enter what unit you wish to convert to.")
+
+    # check that given and produced unit are in the same domain (ie: distance, weight or time)
+    if produced_unit in time_list and given_unit in time_list:
         # times to get to mm
         # check if it's a key
         if given_unit in my_dict:
@@ -120,10 +175,21 @@ my_dict = {
     "cm": 10,
     "m": 1000,
     "km": 1000000,
+    "g": 1,
+    "kg": 1000,
+    "t": 1000000,
+    "second": 1,
+    "minute": 60,
+    "hour": 3600,
+    "day": 86400,
+    "mL": 1,
+    "L": 1000
 }
 # lists
 distance_list = ["mm", "cm", "m", "km"]
-weigh_list = ["g", "kg"]
+weight_list = ["g", "kg", "t"]
+time_list = ["second", "minute", "hour", "day"]
+
 
 # heading
 statement_generator("Conversion Calculator for distance, time & weight", "-")
